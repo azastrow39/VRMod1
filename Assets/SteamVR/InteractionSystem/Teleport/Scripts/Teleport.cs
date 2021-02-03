@@ -797,7 +797,7 @@ namespace Valve.VR.InteractionSystem
 		//-------------------------------------------------
 		private void PlayPointerHaptic( bool validLocation )
 		{
-			if ( pointerHand != null )
+			if ( pointerHand != null && pointerHand.noSteamVRFallbackCamera == null)
 			{
 				if ( validLocation )
 				{
