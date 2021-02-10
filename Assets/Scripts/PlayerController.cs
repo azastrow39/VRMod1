@@ -52,9 +52,11 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("PickUp"))
         {
-            other.gameObject.SetActive(false);
+            other.gameObject.AddComponent<TriangleExplosion>();
+            StartCoroutine(other.gameObject.GetComponent<TriangleExplosion>().SplitMesh(true));
             count++;
             setCountText();
+
         }
     }
 }
