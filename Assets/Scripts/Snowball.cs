@@ -9,11 +9,12 @@ public class Snowball : MonoBehaviour
     public Rigidbody rb;
     public Throwable Throwable;
 
-    public void Start()
+    public Hand attachedToHand;
+
+
+    public void Awake()
     {
         Debug.Log("Starting...");
-        Throwable = gameObject.GetComponent<Throwable>();
-        Throwable.onPickUp.AddListener(OnPickUp);
         rb = gameObject.GetComponent<Rigidbody>();
         //rb.isKinematic = true;
 
@@ -25,12 +26,18 @@ public class Snowball : MonoBehaviour
         other.gameObject.SetActive(false);
     }
 
-    public void OnPickUp()
+    private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Disabling Kinematics!");
-        //rb.isKinematic = false;
-        Regenerator.SpawnSnowball();
-        Throwable.onPickUp.RemoveListener(OnPickUp);
+        if(collision.gameObject.tag == "Ground")
+        {
+            gameObject.SetActive(false);
+        }
     }
+
+    protected virtual void OnAttachedToHand(Hand hand)
+    {
+        Regenerator.SpawnSnowball();
+    }
+
 }
 

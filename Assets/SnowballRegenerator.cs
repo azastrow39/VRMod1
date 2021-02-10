@@ -6,31 +6,28 @@ using Valve.VR.InteractionSystem;
 public class SnowballRegenerator : MonoBehaviour
 {
     public GameObject SnowballPrefab;
-    public Transform spawnPoint;
-    public GameObject SpawnedSnowball;
+    private GameObject SpawnedSnowball;
 
     public void Start()
     {
         SpawnSnowball();
     }
 
-    public void Update()
-    {
-
-    }
-
     public void SpawnSnowball()
     {
+        StartCoroutine("Timer", 3);
+    }
+
+    public IEnumerator Timer(float waitTime)
+    {
+        float time = waitTime;
+        while(time > 0)
+        {
+            yield return new WaitForSeconds(1);
+            time--;
+        }
+
         SpawnedSnowball = Object.Instantiate(SnowballPrefab, this.transform);
         SpawnedSnowball.GetComponent<Snowball>().Regenerator = this;
-        //SpawnedSnowball.GetComponent<Throwable>().onPickUp.AddListener(SnowBallPickedUp);
     }
-
-    public void SnowBallPickedUp()
-    {
-        SpawnSnowball();
-    }
-
-
-
 }
