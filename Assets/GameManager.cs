@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     public float Score = 0;
     public Score_Board ScoreBoard;
+    public GameObject groundPlane;
 
     private void Awake()
     {
