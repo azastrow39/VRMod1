@@ -22,7 +22,6 @@ public class Snowball : MonoBehaviour
         //rb.isKinematic = true;
         part = GetComponent<ParticleSystem>();
         part.collision.SetPlane(0,GameManager.Instance.groundPlane.transform);
-        part.Pause();
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -34,6 +33,12 @@ public class Snowball : MonoBehaviour
             GameManager.Instance.GainScore(1);
 
             startSplatAnimation();
+        }
+        if (other.gameObject.CompareTag("Tree"))
+        {
+            other.gameObject.AddComponent<TriangleExplosion>();
+            StartCoroutine(other.gameObject.GetComponent<TriangleExplosion>().SplitMesh(true));
+            GameManager.Instance.GainScore(20);
         }
     }
 
@@ -53,6 +58,10 @@ public class Snowball : MonoBehaviour
     private void startSplatAnimation()
     {
         part.Play();
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        rb.Sleep();
+        rb.isKinematic = true;
         Destroy(gameObject, part.duration);
         gameObject.GetComponent<MeshRenderer>().enabled = false;
     }

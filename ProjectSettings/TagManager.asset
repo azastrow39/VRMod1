@@ -8,6 +8,7 @@ TagManager:
   - Ground
   - projectile
   - FxTemporaire
+  - Tree
   layers:
   - Default
   - TransparentFX
