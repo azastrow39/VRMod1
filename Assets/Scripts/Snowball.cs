@@ -11,6 +11,8 @@ public class Snowball : MonoBehaviour
 
     public Hand attachedToHand;
 
+    public AudioSource impact;
+
 
     public ParticleSystem part;
 
@@ -57,6 +59,7 @@ public class Snowball : MonoBehaviour
 
     private void startSplatAnimation()
     {
+        impact.Play();
         part.Play();
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
